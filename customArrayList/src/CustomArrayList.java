@@ -4,18 +4,21 @@ import java.util.Comparator;
 
 public class CustomArrayList<E> {
 
+    private static final int DEFAULT_CAPACITY = 10;
     private Object[] elements;
-    public int size;
+    private int size;
 
     public CustomArrayList() {
-        this.elements = new Object[10];
+        this.elements = new Object[DEFAULT_CAPACITY];
         this.size = 0;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public boolean add(E element) {
-        if (size == elements.length) {
-            grow();
-        }
+        ensureCapacity(size + 1);
         elements[size] = element;
         size++;
         return true;
@@ -23,9 +26,7 @@ public class CustomArrayList<E> {
 
     public void add(int index, E element) {
         checkIndex(index, size + 1);
-        if (size == elements.length) {
-            grow();
-        }
+        ensureCapacity(size + 1);
         System.arraycopy(elements, index, elements, index + 1, size - index);
         elements[index] = element;
         size++;
@@ -38,9 +39,7 @@ public class CustomArrayList<E> {
 
         int newSize = collection.size();
 
-        if (newSize > elements.length - size) {
-            grow(newSize);
-        }
+        ensureCapacity(size + newSize);
 
         System.arraycopy(collection.toArray(), 0, elements, size, newSize);
         size += newSize;
@@ -93,38 +92,8 @@ public class CustomArrayList<E> {
     }
 
     public void sort(Comparator<? super E> comparator) {
-        quickSort(0, size - 1, comparator);
-    }
-
-    private void quickSort(int left, int right, Comparator<? super E> comparator) {
-        if (left < right) {
-            E pivot = (E) elements[(left + right) / 2];
-            int i = left;
-            int j = right;
-
-            while (i <= j) {
-                while (comparator.compare((E) elements[i], pivot) < 0) {
-                    i++;
-                }
-                while (comparator.compare((E) elements[j], pivot) > 0) {
-                    j--;
-                }
-
-                if (i <= j) {
-                    swap(i, j);
-                    i++;
-                    j--;
-                }
-            }
-            quickSort(left, j, comparator);
-            quickSort(i, right, comparator);
-        }
-    }
-
-    private void swap(int i, int j) {
-        Object temp = elements[i];
-        elements[i] = elements[j];
-        elements[j] = temp;
+        CustomArrayListSorter<E> sorter = new CustomArrayListSorter<>(comparator);
+        sorter.sort(elements, 0, size - 1);
     }
 
     private void checkIndex(int index, int range) {
@@ -133,12 +102,10 @@ public class CustomArrayList<E> {
         }
     }
 
-    private void grow() {
-        grow(size + 1);
-    }
-
-    private void grow(int minCapacity) {
-        int newCapacity = Math.max(elements.length * 2, minCapacity);
-        elements = Arrays.copyOf(elements, newCapacity);
+    private void ensureCapacity(int minCapacity) {
+        if (minCapacity > elements.length) {
+            int newCapacity = Math.max(elements.length * 2, minCapacity);
+            elements = Arrays.copyOf(elements, newCapacity);
+        }
     }
 }
