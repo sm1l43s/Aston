@@ -1,10 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
-        CustomArrayList list = new CustomArrayList();
+        CustomArrayList<java.io.Serializable> list = new CustomArrayList<>();
 
         list.add("1");
         list.add(1, "asas");
