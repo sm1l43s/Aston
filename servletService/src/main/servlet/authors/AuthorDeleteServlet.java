@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/deleteAuthors")
-public class AuthorServletDelete extends HttpServlet {
-
+public class AuthorDeleteServlet extends HttpServlet {
 
     private BaseService authorService;
 
-    public AuthorServletDelete() {
+    public AuthorDeleteServlet() {
         this.authorService = new AuthorService(new AuthorRepository());
     }
 

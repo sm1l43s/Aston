@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/editAuthor")
-public class EditServlet extends HttpServlet {
+public class AuthorEditServlet extends HttpServlet {
 
     private BaseService authorService;
 
-    public EditServlet() {
+    public AuthorEditServlet() {
         this.authorService = new AuthorService(new AuthorRepository());
     }
 
