@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * A servlet that handles adding a new author to the database.
+ * It allows the user to enter the id and name of the author and submit the data.
+ * It also redirects the user to the list of all authors after adding the new one.
+ */
 @WebServlet("/addAuthors")
 public class AuthorAddServlet extends HttpServlet {
 

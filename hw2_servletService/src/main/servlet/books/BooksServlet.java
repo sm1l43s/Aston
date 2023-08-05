@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * A servlet that handles displaying and deleting books in the database.
+ * It allows the user to view the list of all books and their ids, titles, ISBNs, and authors.
+ * It also provides links to add, edit, or delete a book.
+ */
 @WebServlet("/books")
 public class BooksServlet extends HttpServlet {
 

@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * A servlet that handles editing a book in the database.
+ * It allows the user to enter the new title, ISBN, and author of the book and submit the changes.
+ * It also displays the current information of the book before editing and a dropdown list of all authors to choose from.
+ */
 @WebServlet("/editBooks")
 public class BookEditServlet extends HttpServlet {
 
@@ -45,7 +50,7 @@ public class BookEditServlet extends HttpServlet {
         writer.println("<input type='text' name='isbn' value='" + book.getIsbn() + "'>");
         writer.println("<select name='idAuthor' id='idAuthor'>");
 
-        for (Author author: authors) {
+        for (Author author : authors) {
             if (book.getAuthor().getId() == author.getId()) {
                 writer.println("<option value=" + author.getId() + " selected>" + author.getName() + "</option>");
             } else {
@@ -68,5 +73,4 @@ public class BookEditServlet extends HttpServlet {
         bookService.update(new Book(idBook, title, isbn, authorService.findById(idAuthor)));
         resp.sendRedirect(req.getContextPath() + "/books");
     }
-
 }

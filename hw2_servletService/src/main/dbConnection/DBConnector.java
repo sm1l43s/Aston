@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class DBConnector {
 
     // The name of the properties file
-    private static final String PROPERTIES_FILE = "D:\\TestProjects\\Aston\\servletService\\src\\database.properties";
+    private static final String PROPERTIES_FILE = "D:\\TestProjects\\Aston\\hw2_servletService\\src\\database.properties";
     // The keys for the properties
     private static final String DRIVER_KEY = "db.driver";
     private static final String URL_KEY = "db.url";

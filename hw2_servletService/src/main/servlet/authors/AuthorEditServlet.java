@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * A servlet that handles editing an author in the database.
+ * It allows the user to enter the new name of the author and submit the changes.
+ * It also displays the current name of the author before editing.
+ */
 @WebServlet("/editAuthor")
 public class AuthorEditServlet extends HttpServlet {
 

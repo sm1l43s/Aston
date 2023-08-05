@@ -5,7 +5,6 @@ import main.repository.AuthorRepository;
 import main.service.AuthorService;
 import main.service.BaseService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +14,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * A servlet that handles displaying and deleting authors in the database.
+ * It allows the user to view the list of all authors and their ids and names.
+ * It also provides links to add, edit, or delete an author.
+ */
 @WebServlet("/authors")
 public class AuthorServlet extends HttpServlet {
 
@@ -30,7 +34,7 @@ public class AuthorServlet extends HttpServlet {
         List<Author> authors = authorService.findAll();
 
 
-        resp.setContentType("text/html; charset=windows-1251");
+        resp.setContentType("text/html;");
         PrintWriter writer = resp.getWriter();
 
         writer.println("<html><head><title>Servlet</title><style>td {border: 1px solid black; padding: 10px;} table tr:nth-child(1) {background: black; font-weight: bold; color: white;}");
@@ -45,7 +49,7 @@ public class AuthorServlet extends HttpServlet {
         writer.println("<td>Action</td>");
         writer.println("</tr>");
 
-        for (Author author: authors) {
+        for (Author author : authors) {
             writer.println("<tr>");
             writer.println("<td>" + author.getId() + "</td>");
             writer.println("<td>" + author.getName() + "</td>");
@@ -53,7 +57,7 @@ public class AuthorServlet extends HttpServlet {
             writer.println("<input type='hidden' name='idAuthor' value='" + author.getId() + "'>");
             writer.println("<input type='submit' value='Delete'>");
             writer.println("</form>");
-            writer.println("<a href='/editAuthor?idAuthor="+ author.getId() +"'>Edit</a></td>");
+            writer.println("<a href='/editAuthor?idAuthor=" + author.getId() + "'>Edit</a></td>");
             writer.println("</tr>");
         }
 

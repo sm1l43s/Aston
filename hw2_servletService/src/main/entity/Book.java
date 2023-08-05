@@ -2,15 +2,30 @@ package main.entity;
 
 import java.util.Objects;
 
+/**
+ * A class that represents a book with a title, an ISBN, and an author.
+ */
 public class Book {
+    // The unique identifier of the book
     private Long id;
 
+    // The title of the book
     private String title;
 
+    // The International Standard Book Number of the book
     private String isbn;
 
+    // The author of the book
     private Author author;
 
+    /**
+     * Constructs a new Book object with the given id, title, isbn, and author.
+     *
+     * @param id     the unique identifier of the book
+     * @param title  the title of the book
+     * @param isbn   the International Standard Book Number of the book
+     * @param author the author of the book
+     */
     public Book(Long id, String title, String isbn, Author author) {
         this.id = id;
         this.title = title;
@@ -18,38 +33,86 @@ public class Book {
         this.author = author;
     }
 
+    /**
+     * Returns the id of the book.
+     *
+     * @return the id of the book
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets the id of the book.
+     *
+     * @param id the new id of the book
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Returns the title of the book.
+     *
+     * @return the title of the book
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets the title of the book.
+     *
+     * @param title the new title of the book
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Returns the ISBN of the book.
+     *
+     * @return the ISBN of the book
+     */
     public String getIsbn() {
         return isbn;
     }
 
+    /**
+     * Sets the ISBN of the book.
+     *
+     * @param isbn the new ISBN of the book
+     */
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
+    /**
+     * Returns the author of the book.
+     *
+     * @return the author of the book
+     */
     public Author getAuthor() {
         return author;
     }
 
+    /**
+     * Sets the author of the book.
+     *
+     * @param author the new author of the book
+     */
     public void setAuthor(Author author) {
         this.author = author;
     }
 
+    /**
+     * Checks if this book is equal to another object.
+     * <p>
+     * Two books are equal if they have the same id, title, isbn, and author.
+     *
+     * @param o the object to compare with this book
+     * @return true if this book is equal to o, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,6 +126,12 @@ public class Book {
         return Objects.equals(author, book.author);
     }
 
+    /**
+     * Returns the hash code of this book.
+     * The hash code is computed based on the id, title, isbn, and author of the book.
+     *
+     * @return the hash code of this book
+     */
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
@@ -72,6 +141,12 @@ public class Book {
         return result;
     }
 
+    /**
+     * Returns a string representation of this book.
+     * The string contains the id, title, isbn, and author of the book in curly braces.
+     *
+     * @return a string representation of this book
+     */
     @Override
     public String toString() {
         return "Book{" +

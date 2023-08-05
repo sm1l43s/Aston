@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * A servlet that handles adding a new book to the database.
+ * It allows the user to enter the id, title, ISBN, and author of the book and submit the data.
+ * It also displays a dropdown list of all authors to choose from and redirects the user to the list of all books after adding the new one.
+ */
 @WebServlet("/addBooks")
 public class BookAddServlet extends HttpServlet {
 
@@ -44,7 +49,7 @@ public class BookAddServlet extends HttpServlet {
         writer.println("<input type='text' name='isbn'>");
         writer.println("<select name='idAuthor' id='idAuthor'>");
 
-        for (Author author: authors) {
+        for (Author author : authors) {
             writer.println("<option value=" + author.getId() + ">" + author.getName() + "</option>");
         }
         writer.println("</select>");
