@@ -1,22 +1,22 @@
 package main.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
 @Table(name = "authors")
-public class Author {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Author extends BaseEntity {
 
     @Column
     private String name;
 
     @OneToMany
+    @Fetch(value = FetchMode.SELECT)
     private List<Book> book;
 
     public Author() {
@@ -27,16 +27,8 @@ public class Author {
     }
 
     public Author(Long id, String name) {
-        this.id = id;
+        super(id);
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -62,21 +54,20 @@ public class Author {
 
         Author author = (Author) o;
 
-        if (id != null ? !id.equals(author.id) : author.id != null) return false;
-        return name != null ? name.equals(author.name) : author.name == null;
+        if (!Objects.equals(name, author.name)) return false;
+        return Objects.equals(book, author.book);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (book != null ? book.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Author{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }

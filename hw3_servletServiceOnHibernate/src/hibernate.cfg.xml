@@ -16,6 +16,8 @@
 
         <mapping class="main.entity.Author"/>
         <mapping class="main.entity.Book" />
+        <mapping class="main.entity.BaseEntity"/>
+        <mapping class="main.entity.Reader"/>
 
     </session-factory>
 </hibernate-configuration>

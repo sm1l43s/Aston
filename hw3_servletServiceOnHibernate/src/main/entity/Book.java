@@ -1,14 +1,16 @@
 package main.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "books")
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Book extends BaseEntity {
 
     @Column
     private String title;
@@ -18,7 +20,12 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
+    @Fetch(value = FetchMode.JOIN)
     private Author author;
+
+    @ManyToMany
+    @Fetch(value = FetchMode.SELECT)
+    private List<Reader> readers;
 
     public Book() {
     }
@@ -30,18 +37,10 @@ public class Book {
     }
 
     public Book(Long id, String title, String isbn, Author author) {
-        this.id = id;
+        super(id);
         this.title = title;
         this.isbn = isbn;
         this.author = author;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -75,16 +74,14 @@ public class Book {
 
         Book book = (Book) o;
 
-        if (id != null ? !id.equals(book.id) : book.id != null) return false;
-        if (title != null ? !title.equals(book.title) : book.title != null) return false;
-        if (isbn != null ? !isbn.equals(book.isbn) : book.isbn != null) return false;
-        return author != null ? author.equals(book.author) : book.author == null;
+        if (!Objects.equals(title, book.title)) return false;
+        if (!Objects.equals(isbn, book.isbn)) return false;
+        return Objects.equals(author, book.author);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
+        int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (isbn != null ? isbn.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         return result;
@@ -93,7 +90,6 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
                 ", author=" + author +
