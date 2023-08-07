@@ -18,7 +18,7 @@ public class Book extends BaseEntity {
     @Column
     private String isbn;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
