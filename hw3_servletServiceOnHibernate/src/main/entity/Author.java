@@ -16,7 +16,6 @@ public class Author extends BaseEntity {
     private String name;
 
     @OneToMany
-    @Fetch(value = FetchMode.SELECT)
     private List<Book> book;
 
     public Author() {

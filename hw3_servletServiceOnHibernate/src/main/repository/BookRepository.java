@@ -23,7 +23,7 @@ public class BookRepository implements BaseRepository<Book, Long> {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Book> books = session.createQuery("FROM Book").list();
+        List<Book> books = session.createQuery("SELECT book FROM Book book LEFT JOIN FETCH book.author").list();
 
         transaction.commit();
         session.close();

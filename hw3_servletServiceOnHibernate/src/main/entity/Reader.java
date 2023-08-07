@@ -20,7 +20,6 @@ public class Reader extends BaseEntity {
     private String address;
 
     @ManyToMany
-    @Fetch(value = FetchMode.SELECT)
     List<Book> books;
 
 

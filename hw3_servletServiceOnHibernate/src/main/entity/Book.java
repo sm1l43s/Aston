@@ -20,11 +20,9 @@ public class Book extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    @Fetch(value = FetchMode.JOIN)
     private Author author;
 
     @ManyToMany
-    @Fetch(value = FetchMode.SELECT)
     private List<Reader> readers;
 
     public Book() {
