@@ -30,6 +30,7 @@ public class AuthorServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long m = System.currentTimeMillis();
         List<Author> authors = authorService.findAll();
 
 
@@ -64,5 +65,6 @@ public class AuthorServlet extends HttpServlet {
         writer.println("<div><a href='/'>Back to main page</a></div>");
         writer.close();
 
+        System.out.println((double) (System.currentTimeMillis() - m));
     }
 }

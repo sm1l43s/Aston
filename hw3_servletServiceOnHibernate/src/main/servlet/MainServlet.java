@@ -3,6 +3,8 @@ package main.servlet;
 import main.entity.Author;
 import main.repository.AuthorRepository;
 import main.repository.BaseRepository;
+import main.service.AuthorService;
+import main.service.BaseService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +18,9 @@ import java.util.List;
 @WebServlet(name = "main", urlPatterns = {"/"})
 public class MainServlet extends HttpServlet {
 
+    BaseService authorService;
     public MainServlet() {
-
+            authorService = new AuthorService();
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
