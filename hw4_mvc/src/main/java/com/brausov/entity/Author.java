@@ -1,9 +1,11 @@
-package main.entity;
+package com.brausov.entity;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,9 +16,11 @@ import java.util.Objects;
 public class Author extends BaseEntity {
 
     @Column
+    @JsonProperty("name")
     private String name;
 
     @OneToMany
+    @JsonIgnore
     private List<Book> book;
 
     public Author() {
