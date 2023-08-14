@@ -21,7 +21,7 @@ public class BookController {
 
     @GetMapping
     public ModelAndView getAllBooks() {
-        ModelAndView modelAndView = new ModelAndView("books");
+        ModelAndView modelAndView = new ModelAndView("books/books");
         modelAndView.addObject("books", bookService.findAll());
         return modelAndView;
     }
@@ -35,7 +35,7 @@ public class BookController {
 
     @GetMapping("/edit/{id}")
     public ModelAndView getEditBookPage(@PathVariable("id") long id) {
-        ModelAndView modelAndView = new ModelAndView("editBook");
+        ModelAndView modelAndView = new ModelAndView("books/editBook");
         modelAndView.addObject("book", bookService.findById(id));
         modelAndView.addObject("authors", authorService.findAll());
         return modelAndView;
@@ -43,7 +43,7 @@ public class BookController {
 
     @GetMapping("/add")
     public ModelAndView getAddBookPage() {
-        ModelAndView modelAndView = new ModelAndView("addBook");
+        ModelAndView modelAndView = new ModelAndView("books/addBook");
         modelAndView.addObject("authors", authorService.findAll());
         return modelAndView;
     }
@@ -57,7 +57,7 @@ public class BookController {
 
     @GetMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") long id) {
-        bookService.delete(id);
+        bookService.deleteById(id);
         return "redirect:/books";
     }
 }

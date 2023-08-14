@@ -4,6 +4,6 @@
 
 <a href="/authors">Authors</a>
 <a href="/books">Books</a>
-<a href="/Readers">Readers</a>
+<a href="/readers">Readers</a>
 </body>
 </html>

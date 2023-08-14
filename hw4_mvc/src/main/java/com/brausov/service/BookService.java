@@ -1,6 +1,7 @@
 package com.brausov.service;
 
 import com.brausov.entity.Book;
+import com.brausov.exception.ResourceNotFoundException;
 import com.brausov.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class BookService implements BaseService<Book, Long> {
      *
      * @param booksRepository the BooksRepository object to be used by this service
      */
-    public BookService() {
-        this.booksRepository = new BookRepository();
+    public BookService(BookRepository booksRepository) {
+        this.booksRepository = booksRepository;
     }
 
     /**
@@ -32,7 +33,7 @@ public class BookService implements BaseService<Book, Long> {
      */
     @Override
     public List<Book> findAll() {
-        return booksRepository.findAll();
+        return (List<Book>) booksRepository.findAll();
     }
 
     /**
@@ -43,7 +44,11 @@ public class BookService implements BaseService<Book, Long> {
      */
     @Override
     public Book findById(Long id) {
-        return booksRepository.findById(id);
+        Book book = booksRepository.findById(id);
+        if (book != null) {
+            return book;
+        }
+        throw new ResourceNotFoundException("Book with id: " + id + " not found");
     }
 
     /**
@@ -53,8 +58,12 @@ public class BookService implements BaseService<Book, Long> {
      * @return true if the book was deleted, false otherwise
      */
     @Override
-    public boolean delete(Long id) {
-        return booksRepository.delete(id);
+    public void deleteById(Long id) {
+        Book book = booksRepository.findById(id);
+        if (book != null) {
+            booksRepository.delete(id);
+        }
+        throw new ResourceNotFoundException("Book with id: " + id + " not found");
     }
 
     /**

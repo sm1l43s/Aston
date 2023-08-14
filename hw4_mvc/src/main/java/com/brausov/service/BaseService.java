@@ -31,7 +31,7 @@ public interface BaseService<E, K> {
      * @param id the key of the entity to delete
      * @return true if the entity was deleted, false otherwise
      */
-    boolean delete(K id);
+    void deleteById(K id);
 
     /**
      * Creates a new entity and returns it.

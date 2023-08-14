@@ -19,7 +19,7 @@ public class AuthorController {
 
     @GetMapping
     public ModelAndView getAllAuthors(Model model) {
-        ModelAndView modelAndView = new ModelAndView("authors");
+        ModelAndView modelAndView = new ModelAndView("authors/authors");
         modelAndView.addObject("authors", authorService.findAll());
         return modelAndView;
     }
@@ -32,14 +32,14 @@ public class AuthorController {
 
     @GetMapping("/edit/{id}")
     public ModelAndView getEditAuthorPage(@PathVariable("id") long id) {
-        ModelAndView modelAndView = new ModelAndView("editAuthor");
+        ModelAndView modelAndView = new ModelAndView("authors/editAuthor");
         modelAndView.addObject("author", authorService.findById(id));
         return modelAndView;
     }
 
     @GetMapping("/add")
     public ModelAndView getAddAuthorPage() {
-        ModelAndView modelAndView = new ModelAndView("addAuthor");
+        ModelAndView modelAndView = new ModelAndView("authors/addAuthor");
         return modelAndView;
     }
 
@@ -50,7 +50,7 @@ public class AuthorController {
     }
     @GetMapping("/remove/{id}")
     public String removeAuthor(@PathVariable("id") long id) {
-        authorService.delete(id);
+        authorService.deleteById(id);
         return "redirect:/authors";
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AuthorRepository implements BaseRepository<Author, Long> {
+public class AuthorRepository {
 
     private SessionFactory sessionFactory;
     private Session session;
@@ -19,7 +19,7 @@ public class AuthorRepository implements BaseRepository<Author, Long> {
         this.sessionFactory = new Configuration().configure().buildSessionFactory();
     }
 
-    @Override
+
     public List<Author> findAll() {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -31,7 +31,7 @@ public class AuthorRepository implements BaseRepository<Author, Long> {
         return authors;
     }
 
-    @Override
+
     public Author findById(Long id) {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -43,18 +43,7 @@ public class AuthorRepository implements BaseRepository<Author, Long> {
         return author;
     }
 
-    public Author findByName(String name) {
-        session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
 
-        Author author = session.get(Author.class, name);
-
-        transaction.commit();
-        session.close();
-        return author;
-    }
-
-    @Override
     public boolean delete(Long id) {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -63,10 +52,9 @@ public class AuthorRepository implements BaseRepository<Author, Long> {
 
         transaction.commit();
         session.close();
-        return findById(id) == null ? true : false;
+        return findById(id) == null;
     }
 
-    @Override
     public Author create(Author entity) {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -78,7 +66,6 @@ public class AuthorRepository implements BaseRepository<Author, Long> {
         return entity;
     }
 
-    @Override
     public Author update(Author entity) {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

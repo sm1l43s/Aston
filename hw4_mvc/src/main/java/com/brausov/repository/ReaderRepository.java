@@ -1,6 +1,6 @@
 package com.brausov.repository;
 
-import com.brausov.entity.Book;
+import com.brausov.entity.Reader;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,36 +9,38 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class BookRepository {
+public class ReaderRepository {
 
     private final SessionFactory sessionFactory;
     private Session session;
 
-    public BookRepository(SessionFactory sessionFactory) {
+    public ReaderRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
 
-    public List<Book> findAll() {
+    public List<Reader> findAll() {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Book> books = session.createQuery("SELECT book FROM Book book LEFT JOIN FETCH book.author").list();
+        List<Reader> readers = session.createQuery("SELECT reader FROM Reader reader LEFT JOIN FETCH reader.books").list();
 
         transaction.commit();
         session.close();
-        return books;
+        return readers;
     }
 
-    public Book findById(Long id) {
+    public Reader findById(Long id) {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        Book book = session.get(Book.class, id);
+        String hql = "SELECT reader FROM Reader reader LEFT JOIN FETCH reader.books WHERE reader.id = :id";
+
+        Reader reader = (Reader) session.createQuery(hql).setParameter("id", id).uniqueResult();
 
         transaction.commit();
         session.close();
-        return book;
+        return reader;
     }
 
     public boolean delete(Long id) {
@@ -52,7 +54,7 @@ public class BookRepository {
         return findById(id) == null;
     }
 
-    public Book create(Book entity) {
+    public Reader create(Reader entity) {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -63,7 +65,7 @@ public class BookRepository {
         return entity;
     }
 
-    public Book update(Book entity) {
+    public Reader update(Reader entity) {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 

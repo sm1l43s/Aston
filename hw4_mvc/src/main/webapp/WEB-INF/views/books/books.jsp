@@ -17,7 +17,7 @@
   }
 </style>
 <body>
-<h2>Authors</h2>
+<h2>Books</h2>
 <div>
   <a href="/">Back to main page</a>
 </div>

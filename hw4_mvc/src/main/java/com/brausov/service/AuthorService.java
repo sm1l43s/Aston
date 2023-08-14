@@ -1,6 +1,7 @@
 package com.brausov.service;
 
 import com.brausov.entity.Author;
+import com.brausov.exception.ResourceNotFoundException;
 import com.brausov.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,8 @@ public class AuthorService implements BaseService<Author, Long> {
      *
      * @param authorRepository an object of AuthorRepository class
      */
-    public AuthorService() {
-        this.authorRepository = new AuthorRepository();
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
     /**
@@ -33,7 +34,7 @@ public class AuthorService implements BaseService<Author, Long> {
      */
     @Override
     public List<Author> findAll() {
-        return authorRepository.findAll();
+        return (List<Author>) authorRepository.findAll();
     }
 
     /**
@@ -44,12 +45,13 @@ public class AuthorService implements BaseService<Author, Long> {
      */
     @Override
     public Author findById(Long id) {
-        return authorRepository.findById(id);
+        Author author = authorRepository.findById(id);
+        if (author != null) {
+            return author;
+        }
+        throw new ResourceNotFoundException("Author with id: " + id + " not found");
     }
 
-    public Author findByName(String name) {
-        return authorRepository.findByName(name);
-    }
     /**
      * A method that deletes an author by its id in the repository.
      *
@@ -57,8 +59,13 @@ public class AuthorService implements BaseService<Author, Long> {
      * @return true if the author was deleted, false otherwise
      */
     @Override
-    public boolean delete(Long id) {
-        return authorRepository.delete(id);
+    public void deleteById(Long id) {
+
+        Author author = authorRepository.findById(id);
+        if (author != null) {
+            authorRepository.delete(id);
+        }
+        throw new ResourceNotFoundException("Author with id: " + id + " not found");
     }
 
     /**

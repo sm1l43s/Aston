@@ -19,12 +19,12 @@ public class Book extends BaseEntity {
     @JsonProperty
     private String isbn;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     @JsonProperty
     private Author author;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "books")
     @JsonIgnore
     private List<Reader> readers;
 
@@ -66,6 +66,14 @@ public class Book extends BaseEntity {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public List<Reader> getReaders() {
+        return readers;
+    }
+
+    public void setReaders(List<Reader> readers) {
+        this.readers = readers;
     }
 
     @Override
